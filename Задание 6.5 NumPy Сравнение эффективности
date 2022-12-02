@@ -1,0 +1,41 @@
+//Написать программу, реализующую алгоритм из индивидуального задания с использованием list, 
+//замерить время выполнения и сравнить с готовой реализацией алгоритма из библиотеки NumPy. 
+//Для более полного анализа проводить сравнения на разных размерностях входных данных. 
+//Например, для матриц можно взять три варианта реализации: 10 × 10, 100 × 100, 500 × 500. 
+//(В зависимости от задания время выполнения алгоритма на больших размерностях может быть очень большим, в этом случае размерности можно уменьшить. 
+//И наоборот: при необходимости можно увеличить размерность или повторить действия несколько раз и усреднить результаты)
+//20. Найти наиболее часто встречающееся значение в матрице.
+
+import numpy as np
+import time
+import random
+
+arr = np.random.randint(1000, size=(10, 10))
+%timeit np.argmax(np.bincount(arr.flat))
+#iterator
+#return an array with the count at the appropriate index
+
+lst = [[random.randint(100, 1000) for i in range(10)] for j in range(10)]
+%timeit max(lst, key=lst.count)
+
+//The slowest run took 14.61 times longer than the fastest. This could mean that an intermediate result is being cached.
+//100000 loops, best of 5: 6.86 µs per loop
+//100000 loops, best of 5: 3.81 µs per loop
+
+arr = np.random.randint(1000, size=(100, 100))
+%timeit np.argmax(np.bincount(arr.flat))
+
+lst = [[random.randint(100, 1000) for i in range(100)] for j in range(100)]
+%timeit max(lst, key=lst.count)
+
+//10000 loops, best of 5: 25.4 µs per loop
+//1000 loops, best of 5: 347 µs per loop
+
+arr = np.random.randint(1000, size=(500, 500))
+%timeit np.argmax(np.bincount(arr.flat))
+
+lst = [[random.randint(100, 1000) for i in range(500)] for j in range(500)]
+%timeit max(lst, key=lst.count)
+
+//1000 loops, best of 5: 475 µs per loop
+//100 loops, best of 5: 10.9 ms per loop
