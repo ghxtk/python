@@ -1,0 +1,20 @@
+//Задание 1. Функции: передача параметров
+//Написать не возвращающую значение функцию, которая изменяет список, переданный в качестве параметра, в соответствии с заданием
+//20. удалить элементы, встречающиеся в массиве только один раз.
+
+def delete_singles(array):
+    i = 0
+    while i < len(array):
+        if (array.count(array[i]) == 1):
+            array.pop(array.index(array[i]))
+        else:
+            i +=1
+
+n = int(input())
+array = list(map(int, input().split()))
+delete_singles(array)
+print ("result : " + ' '.join(str(x) for x in array))
+
+//3
+//1 2 3
+//result
