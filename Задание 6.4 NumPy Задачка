@@ -1,0 +1,30 @@
+import numpy as np
+
+arr = np.array([['a', 'b', 'c'], ['b', 'c', 'a'], ['c', 'a', 'b']])
+print(arr)
+
+while len(arr[0]) != 192:
+    arr = np.column_stack([arr,  np.fliplr(arr)])
+    arr = np.vstack([arr, np.flipud(arr)])
+
+# this flips the entries in each row in the left/right direction
+#Rows are preserved, but appear in a different order
+
+x, y = map(int, input("Enter x, y ").split())
+print(arr)
+print(arr[x - 1, y - 1])
+
+
+//
+[['a' 'b' 'c']
+ ['b' 'c' 'a']
+ ['c' 'a' 'b']]
+Enter x, y 1 2
+[['a' 'b' 'c' ... 'c' 'b' 'a']
+ ['b' 'c' 'a' ... 'a' 'c' 'b']
+ ['c' 'a' 'b' ... 'b' 'a' 'c']
+ ...
+ ['c' 'a' 'b' ... 'b' 'a' 'c']
+ ['b' 'c' 'a' ... 'a' 'c' 'b']
+ ['a' 'b' 'c' ... 'c' 'b' 'a']]
+b
