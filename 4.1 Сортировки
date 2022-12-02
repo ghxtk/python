@@ -1,0 +1,293 @@
+//Сортировки. Записи. Задача 2
+//В текстовом файле содержатся записи о студентах. Для каждого студента известны его фамилия, имя, отчество, год рождения, оценки по пяти предметам.
+//Необходимо отсортировать по возрастанию средней оценки (гарантируется, что средние оценки не повторяются).
+
+class Student:
+    def __init__(self, surname=None, name=None, patronymic=None, year=0, marks=None):
+        self.surname = surname
+        self.name = name
+        self.patronymic = patronymic
+        self.year = year
+        if marks is None:
+            self.marks = []
+        else:
+            self.marks = marks
+        self.srmark = sum(marks)/5
+
+    def __str__(self):
+        return (f'{self.surname} {self.name} {self.patronymic} {self.year} '+ ' '.join(str(x) for x in self.marks))
+
+studs = []
+with open("input.txt", "r") as in_f:
+    n = int(in_f.readline())
+    for line in in_f:
+        line = list(line.rstrip().split())
+        mark1 = (int)(line[4])
+        mark2 = (int)(line[5])
+        mark3 = (int)(line[6])
+        mark4 = (int)(line[7])
+        mark5 = (int)(line[8])
+        marks = [mark1, mark2, mark3, mark4, mark5]
+        new_stud = Student(line[0], line[1], line[2], (int)(line[3]), marks)
+        studs.append(new_stud)
+
+for i in range(len(studs) - 1):
+    for j in range(len(studs) - i - 1):
+        if (studs[j].srmark > studs[j + 1].srmark):
+            new = studs[j + 1]
+            studs[j + 1] = studs[j]
+            studs[j] = new
+with open("output.txt", "w") as out_f:
+    out_f.write('\n'.join(str(x) for x in studs))
+    
+//Сортировки. Записи. Задача 1
+//В текстовом файле содержатся записи о студентах. Для каждого студента известны его фамилия, имя, отчество, год рождения, оценки по пяти предметам.
+//Необходимо отсортировать записи по убыванию средней оценки. Порядок записей с одинаковой средней оценкой оставить неизменным.
+
+class Student:
+    def __init__(self, surname=None, name=None, patronymic=None, year=0, marks=None):
+        self.surname = surname
+        self.name = name
+        self.patronymic = patronymic
+        self.year = year
+        if marks is None:
+            self.marks = []
+        else:
+            self.marks = marks
+        self.srmark = sum(marks)/5
+
+    def __str__(self):
+        return (f'{self.surname} {self.name} {self.patronymic} {self.year} '+ ' '.join(str(x) for x in self.marks))
+
+studs = []
+with open("input.txt", "r") as in_f:
+    n = int(in_f.readline())
+    for line in in_f:
+        line = list(line.rstrip().split())
+        mark1 = (int)(line[4])
+        mark2 = (int)(line[5])
+        mark3 = (int)(line[6])
+        mark4 = (int)(line[7])
+        mark5 = (int)(line[8])
+        marks = [mark1, mark2, mark3, mark4, mark5]
+        new_stud = Student(line[0], line[1], line[2], (int)(line[3]), marks)
+        studs.append(new_stud)
+
+for i in range(len(studs) - 1):
+    for j in range(len(studs) - i - 1):
+        if (studs[j].srmark < studs[j + 1].srmark):
+            new = studs[j + 1]
+            studs[j + 1] = studs[j]
+            studs[j] = new
+with open("output.txt", "w") as out_f:
+    out_f.write('\n'.join(str(x) for x in studs))
+    
+//Сортировки. Записи. Задача 5
+//В текстовом файле содержатся записи о студентах. Для каждого студента известны его фамилия, имя, отчество, год рождения, оценки по пяти предметам.
+//Необходимо отсортировать в алфавитном порядке по фамилии, а затем по убыванию года рождения.    
+
+class Student:
+    def __init__(self, surname=None, name=None, patronymic=None, year=0, marks=None):
+        self.surname = surname
+        self.name = name
+        self.patronymic = patronymic
+        self.year = year
+        if marks is None:
+            self.marks = []
+        else:
+            self.marks = marks
+        self.srmark = sum(marks)/5
+
+    def __str__(self):
+        return (f'{self.surname} {self.name} {self.patronymic} {self.year} '+ ' '.join(str(x) for x in self.marks))
+
+studs = []
+with open("input.txt", "r") as in_f:
+    n = int(in_f.readline())
+    for line in in_f:
+        line = list(line.rstrip().split())
+        mark1 = (int)(line[4])
+        mark2 = (int)(line[5])
+        mark3 = (int)(line[6])
+        mark4 = (int)(line[7])
+        mark5 = (int)(line[8])
+        marks = [mark1, mark2, mark3, mark4, mark5]
+        new_stud = Student(line[0], line[1], line[2], (int)(line[3]), marks)
+        studs.append(new_stud)
+
+for i in range(len(studs) - 1):
+    for j in range(len(studs) - i - 1):
+        if (studs[j].surname > studs[j + 1].surname):
+            new = studs[j + 1]
+            studs[j + 1] = studs[j]
+            studs[j] = new
+for i in range(len(studs) - 1):
+    for j in range(len(studs) - i - 1):
+        if (studs[j].year < studs[j + 1].year):
+            if (studs[j].surname == studs[j + 1].surname):
+                new = studs[j + 1]
+                studs[j + 1] = studs[j]
+                studs[j] = new
+with open("output.txt", "w") as out_f:
+    out_f.write('\n'.join(str(x) for x in studs))
+    
+//Сортировки. Матрицы. Задача 1
+//Дана квадратная матрица размерностью N×N содержащая целые числа.
+//Необходимо отсортировать каждую строчку матрицы по убыванию элементов.    
+
+with open("input.txt", "r") as in_f:
+    with open("output.txt", "w") as out_f:
+        n = int(in_f.readline())
+        for line in in_f:
+            line = list(map(int, line.rstrip().split()))
+            for i in range(len(line) - 1):
+                for j in range(len(line) - i - 1):
+                    if (line[j] < line[j + 1]):
+                        new = line[j + 1]
+                        line[j + 1] = line[j]
+                        line[j] = new
+            out_f.write(' '.join(str(x) for x in line) + '\n')
+            
+//Сортировки. Матрицы. Задача 2
+//Дана квадратная матрица размерностью N×N содержащая целые числа.
+//Необходимо отсортировать каждый столбец матрицы по возрастанию элементов.       
+
+a = []
+with open("input.txt", "r") as in_f:
+        n = int(in_f.readline())
+        for i in range(n):
+            a.append([0] * n)
+        i = 0
+        for line in in_f:
+            line = list(map(int, line.rstrip().split()))
+            a[i] = (line)
+            i += 1
+
+for k in range(n):
+    for i in range(n - 1):
+        for j in range(n - i - 1):
+            if a[j][k] > a[j + 1][k]:
+                new = a[j + 1][k]
+                a[j + 1][k] = a[j][k]
+                a[j][k] = new
+
+with open("output.txt", "w") as out_f:
+    for i in range(n):
+        out_f.write(' '.join(str(x) for x in a[i]) + '\n')
+
+//Сортировки. Матрицы. Задача 5
+//Дана квадратная матрица размерностью N×N содержащая целые числа.
+//Необходимо отсортировать каждый четный столбец матрицы по убыванию элементов, а каждый нечетный — по возрастанию элементов.
+
+a = []
+with open("input.txt", "r") as in_f:
+        n = int(in_f.readline())
+        for i in range(n):
+            a.append([0] * n)
+        i = 0
+        for line in in_f:
+            line = list(map(int, line.rstrip().split()))
+            a[i] = (line)
+            i += 1
+
+for k in range(n):
+    if k % 2 == 0:
+        for i in range(n - 1):
+            for j in range(n - i - 1):
+                if a[j][k] > a[j + 1][k]:
+                    new = a[j + 1][k]
+                    a[j + 1][k] = a[j][k]
+                    a[j][k] = new
+    else:
+        for i in range(n - 1):
+            for j in range(n - i - 1):
+                if a[j][k] < a[j + 1][k]:
+                    new = a[j + 1][k]
+                    a[j + 1][k] = a[j][k]
+                    a[j][k] = new
+
+with open("output.txt", "w") as out_f:
+    for i in range(n):
+        out_f.write(' '.join(str(x) for x in a[i]) + '\n')
+        
+//Сортировки. Структуры. Задача 8
+//В текстовом файле содержатся записи о поставках товаров. Для каждой поставки указано наименование поставленного товара, фирма-производитель и количество. 
+//Необходимо вывести первые 10 поставок списка, полученного в результате сортировки исходного списка по наименованию товара 
+(при совпадении наименований поставки сортируются по количеству товара в порядке невозрастания, при совпадении наименования и количества сохраняется исходный порядок) 
+//и исключения из списка поставок товаров фирмы, указанной в последней строке файла.        
+
+class Tovar:
+    def __init__(self, tovar, firma, count):
+        self.firma = firma
+        self.tovar = tovar
+        self.count = int(count)
+
+    def __eq__(self, other):
+        return self.tovar == other.tovar and self.firma == other.firma and self.count == other.count
+
+    def __lt__(self, other):
+        if self.tovar == other.tovar:
+            return self.count > other.count
+        elif self.tovar > other.tovar:
+            return False
+        return True
+
+
+def sort(nums):
+    for i in range(1, len(nums)):
+        item_to_insert = nums[i]
+        j = i - 1
+        while j >= 0 and nums[j] > item_to_insert:
+            nums[j + 1] = nums[j]
+            j -= 1
+        nums[j + 1] = item_to_insert
+
+
+n = int(input())
+l = []
+for i in range(n):
+    j = input().split()
+    l.append(Tovar(j[0], j[1], j[2]))
+firma = input()
+l = [i for i in l if i.firma != firma]
+sort(l)
+c = 1
+
+for i in l:
+    if c != 11:
+        print(str(i.tovar) + " " + str(i.firma) + " " + str(i.count))
+        c += 1
+        
+//Сортировки. Структуры. Задача 10
+//Дан набор из N карт — подмножество стандартной колоды из 52 карт. Необходимо сортировать карты каждой масти по рангу 
+//(2, 3, ..., 10, валет 11, дама 12, король 13, туз 14). Порядок, в котором следует расположить масти, также задан. 
+
+keys = []
+kards = []
+output = ""
+with open("input.txt", "r") as in_f:
+    n = int(in_f.readline().rstrip())
+    for i in range(n):
+        line = in_f.readline()
+        line = list(line.rstrip().split())
+        keys.append(line[1])
+        kards.append((int)(line[0]))
+    output = in_f.readline().rstrip()
+
+for i in range(len(kards) - 1):
+    for j in range(len(kards) - i - 1):
+        if (kards[j] > kards[j + 1]):
+            new = kards[j + 1]
+            kards[j + 1] = kards[j]
+            kards[j] = new
+            new_key = keys[j + 1]
+            keys[j + 1] = keys[j]
+            keys[j] = new_key
+
+with open("output.txt", "w") as out_f:
+    for x in output:
+        out_f.write(f'{x}: ')
+        for i in range(len(keys)):
+            if keys[i] == x:
+                out_f.write(f'{kards[i]} ')
+        out_f.write('\n')
