@@ -1,0 +1,72 @@
+import csv
+import math
+
+try:
+    rows = int(input("rows="))
+    cols = int(input("cols="))
+    n = int(input("n="))
+    m = int(input("m="))
+    prods = []
+    products = input().split(',')
+
+
+    with open('input.csv', 'r', encoding='utf-8', newline='') as file:
+        reader = csv.reader(file)
+        for row in reader:
+            prods.append(row)
+
+        if sum(len(row) for row in prods) != n:
+            raise Warning(f"Количество коробок в файле не соответствует введенному количеству коробок")
+
+        count = 0
+        for row in prods:
+            if row.count('') != len(row):
+                count += 1
+        if count != rows:
+            raise Warning(f"Количество указанных не пустых строк не соответствует не пустым строкам в файле")
+
+#1 - not empty column
+        col = len(prods[0])
+        count = 0
+        for i in range(col):
+            for row in prods:
+                if row[i] != '':
+                    count += 1
+                    break
+
+        if count != cols:
+            raise Warning(f"Количество указанных не пустых столбцов не соответствует не пустым столбцам в файле")
+
+    count = 0
+    for row in prods:
+        for prod in row:
+            if prod != '':
+                for i in prod.split(','):
+                    count += 1
+    if count != m:
+        raise Warning(f"Количество введенных элементов не соответствует количеству элементов из файла")
+
+    for row in prods:
+        for prod in row:
+            if prod != '':
+                for i in prod.split(','):
+                    if products.count(i) == 0:
+                        raise Warning(f"Названия введенных элементов не соответствуют элементам из файла")
+
+except Exception as ex:
+    print(ex)
+    exit()
+
+
+print(f"Если в {n} ящиках лежит {m} предметов, то", end=' ')
+if m > n:
+    if m % n == 1:
+        print(f"хотя бы в одном ящике лежит не менее {math.trunc(m / n) + 1} предметов")
+    else:
+        print(f"хотя бы в {m % n} ящиках лежит не менее {math.trunc(m / n) + 1} предметов")
+elif m < n:
+    print(f"пустых ящиков как минимум {n - m}")
+else:
+    print("все ящики могут быть заполнены")
+
+
