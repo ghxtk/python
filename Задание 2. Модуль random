@@ -1,0 +1,65 @@
+//Задание 2. Модуль random
+//id — случайное пятизначное число,
+//логин — случайная последовательность из 6 маленьких английских букв,
+//пароль — случайная последовательность из 10 неповторяющихся больших и маленьких английских букв и цифр
+//Создайте функцию генерации id, функцию генерации логина и функцию генерации пароля. 
+//С использованием этих трёх функций напишите функцию, генерирующую список из N троек вида
+//(id, логин, пароль), в которых ни id, ни логины, ни пароли не повторяются (при этом повторный вызов функции не должен учитывать результаты предыдущей генерации). 
+//Также должны выполняться следующие условия:
+//(гласными считаем «aeiou»)
+//20) id — чётное число, логин начинается с «a» или «u», в пароле есть хотя бы три буквы, но они не могут стоять на нечётных позициях
+
+import random
+
+def random_id():
+    id = random.randint(10000, 99999)
+    if (id % 2 != 0):
+        return random_id()
+    else:
+        return id
+
+def random_password():
+    alphabet = "qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM"
+    num = "0123456789"
+    col_letter = random.randint(3, 5)
+    col_num = 10 - col_letter
+    letters = random.sample(alphabet, col_letter)
+    nums = random.sample(num, col_num)
+    password = letters + nums
+    while (password[0].isalpha() or password[2].isalpha() or password[4].isalpha() or password[6].isalpha() or password[8].isalpha()):
+        random.shuffle(password)
+    return password
+
+def random_login():
+    alphabet = "qwertyiopsdfghjklzxcvbnm"
+    first_sym = random.sample("au", 1)
+    remaining_sym = random.sample(alphabet, 5)
+    return first_sym + remaining_sym
+
+def get_list(n):
+    list_of_data = []
+    for i in range(n):
+        id = random_id()
+        password = random_password()
+        login = random_login()
+        while list_of_data.count([id, ''.join(str(x) for x in login), ''.join(str(x) for x in password)]):
+            id = random_id()
+            password = random_password()
+            login = random_login()
+        list_of_data.append([id, ''.join(str(x) for x in login), ''.join(str(x) for x in password)])
+    return list_of_data
+
+n = int(input())
+print('\n'.join(str(x) for x in get_list(n)))
+
+//10
+//[30898, 'uxdzym', '5N1R2p7m4b']
+//[30364, 'axlcyo', '9v4q6b3P5n']
+//[52798, 'uosdlg', '9e0U4h5I61']
+//[50432, 'ukrihg', '5C4I2R7l9X']
+//[85548, 'awhjpz', '0i3W2k9J4h']
+//[43626, 'uqhgxp', '629R753z8U']
+//[66540, 'aonvsd', '1w7y8C6L0R']
+//[18450, 'amolsz', '9k1U0e6243']
+//[35984, 'uzhlsc', '0M178a4W56']
+//[97336, 'almbix', '0U397o412M']
