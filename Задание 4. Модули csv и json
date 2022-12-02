@@ -1,0 +1,22 @@
+import csv
+import json
+
+with open('galaxy.json', 'r', encoding='windows-1251') as f_in:
+    content = json.load(f_in)
+
+stars = []
+for sec, com in content.items():
+    for c in com:
+        for item in c["stars"]:
+            star = {"constellation": c["name"], "lat_name": c["lat_name"], "square": int(c["square"]),
+                    "name": item["name"], "brightness": float(item["brightness"]),
+                    "near_constellations": ', '.join(i for i in c["near"])}
+            stars.append(star)
+
+head = ["name", "brightness", "constellation", "lat_name", "square", "near_constellations"]
+
+with open('output_galaxy.csv', 'w', newline='', encoding='windows-1251') as f_out:
+    writer = csv.DictWriter(f_out, fieldnames=head, delimiter=';')
+    writer.writeheader()
+    for star in stars:
+        writer.writerow(star)
