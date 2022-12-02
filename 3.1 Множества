@@ -1,0 +1,107 @@
+//Количество различных букв
+//Дана строка. Определить, сколько различных букв в ней без учета регистра.
+
+str = input()
+mySet = set(str.lower())
+print(len(mySet))
+
+//Одинаковые числа
+//Заданы три числа a, b и c. За один ход можно заменить любое из них на любое другое произвольное число.
+//Какое минимальное количество действий надо сделать, чтобы получить набор из трех одинаковых чисел?
+
+mySet = set(input().split())
+print(len(mySet) - 1)
+
+//Редкие буквы
+//Дана строка, состоящая из строчных латинских букв. 
+//Вывести в алфавитном порядке те буквы, которые встречаются только один раз.
+
+myStr = input()
+mySet = set(myStr)
+myList = list(i for i in mySet if myStr.count(i) == 1)
+print(''.join(str(i) for i in sorted(myList)))
+
+//Условный оператор. Задача 15
+//Дано натуральное четырехзначное число. 
+//Определить, повторяются ли какие-либо цифры в записи данного числа.
+
+myStr = input()
+mySet = set(myStr)
+if len(myStr) == len(mySet):
+    print("NO")
+else:
+    print("YES")
+    
+//Две строки 2
+//Даны две строки. Определить, можно ли из букв первой строки получить вторую строку. 
+//Повторяющиеся буквы второй строки могут в первой строке не повторяться
+
+str1 = set(input())
+str2 = set(input())
+print(str1.intersection(str2) == str2)
+#совпадает ли пересечение со 2 строкой
+
+//Геометрия. Задача 13
+//На плоскости заданы два множества точек A и B размерности N и M соответственно. 
+//Постройте пересечение и разность этих множеств.
+
+n, m = map(int, input().split())
+list1 = set(tuple(map(int, input().split())) for i in range(n))
+list2 = set(tuple(map(int, input().split())) for j in range(m))
+mySet1 = sorted(list1 & list2)
+mySet2 = sorted(list1 - list2)
+if len(mySet1) == 0:
+    print("empty")
+else:
+    print(' '.join(str(i) for i in mySet1))
+if len(mySet2) == 0:
+    print("empty")
+else:
+    print(' '.join(str(i) for i in mySet2))
+    
+//Геометрия. Задача 15
+//На плоскости задано N наборов по M точек в каждом. Среди точек первого набора найти такую, которая принадлежит наибольшему количеству остальных наборов. 
+//Точка принадлежит набору, если она встречается в нём хотя бы один раз.    
+
+n, m = map(int, input().split())
+myList = [tuple(map(int, input().split())) for i in range(m)]
+sets = list(set(tuple(map(int, input().split())) for k in range(m)) for j in range(n - 1))
+myResSet = [0] * m
+for i in range(n - 1):
+    for j in set(myList) & sets[i]:
+        myResSet[myList.index(j)] += 1
+if max(myResSet) == 0:
+    print(-1)
+else:
+    print(' '.join(str(i) for i in myList[myResSet.index(max(myResSet))]))
+    
+//ЕГЭ 2012 C4 (апробация КЕГЭ)
+//Элемент последовательности целых натуральных чисел будем называть "подходящим числом", если в его десятичной записи встречается ровно две различные цифры, входящие в запись последующего элемента (возможно, взятые в другом порядке и/или количестве). 
+//Найдите все "подходящие числа" в последовательности из N чисел.    
+    
+n = int(input())
+nums = []
+for i in range(n):
+    nums.append(int(input()))
+count = 0
+for i in range(n - 1):
+    first = list(str(nums[i]))
+    second = list(str(nums[i + 1]))
+    result = list(set(first) & set(second))
+    if len(result) == 2:
+        print(nums[i])
+        count = 1
+if count == 0:
+    print('N')
+    
+//Одномерные массивы. Задача 2.6
+//Дан одномерный массив, элементы которого — целые числа. 
+//Удалите из него все элементы, в записи которых все цифры различны.
+
+n = int(input())
+myListOfString = input().split()
+myResList = []
+for i in range(n):
+    if len(myListOfString[i]) != len(set(myListOfString[i])):
+        myResList.append(myListOfString[i])
+print(' '.join(str(i) for i in myResList))
