@@ -1,0 +1,119 @@
+//Максимальный элемент каждой строки
+//Дана целочисленная матрица A (квадратная таблица) размерностью N×N. Вывести максимальный элемент каждой строки матрицы.
+
+import numpy as np
+
+size_n = int(input())
+a = np.empty((size_n, size_n))
+for i in range(size_n):
+    row = np.array([list(map(int, input().split()))])
+    a[i] = row
+b = np.max(a, axis=1)
+print(' '.join(str(int(i)) for i in b))
+
+//Максимальный элемент каждого столбца
+//Дана целочисленная матрица A (квадратная таблица) размерностью N×N. Вывести максимальный элемент каждого столбца.
+
+import numpy as np
+
+size_n = int(input())
+a = np.empty((size_n, size_n))
+for i in range(size_n):
+    row = np.array([list(map(int, input().split()))])
+    a[i] = row
+b = np.max(a, axis=0)
+print(' '.join(str(int(i)) for i in b))
+
+//Элементы главной диагонали
+//Дана целочисленная матрица A (квадратная таблица) размерностью N×N. Вывести элементы главной диагонали
+
+import numpy as np
+
+size_n = int(input())
+a = np.empty((size_n, size_n))
+for i in range(size_n):
+    row = np.array([list(map(int, input().split()))])
+    a[i] = row
+b = np.diagonal(a)
+print(' '.join(str(int(i)) for i in b))
+
+//Элементы побочной диагонали
+//Дана целочисленная матрица A (квадратная таблица) размерностью N×N. Вывести элементы побочной диагонали.
+
+import numpy as np
+
+size_n = int(input())
+a = np.empty((size_n, size_n))
+for i in range(size_n):
+    row = np.array([list(map(int, input().split()))])
+    a[i] = row
+b = np.fliplr(a).diagonal()
+print(' '.join(str(int(i)) for i in b))
+
+//Четные и нечетные числа столбца
+//Дана целочисленная матрица A (квадратная таблица) размерностью N×N. Вывести количество четных и нечетных элементов в каждом столбце.
+
+import numpy as np
+
+size_n = int(input())
+matrix = np.empty((size_n, size_n))
+uneven = 0
+even = 0
+for i in range(size_n):
+    matrix[i] = np.array([list(map(float, input().split()))])
+for i in range(size_n):
+    uneven = (matrix[0:size_n, i] % 2 != 0).sum()
+    even = (matrix[0:size_n, i] % 2 == 0).sum()
+    print(even, end=" ")
+    print(uneven)
+    
+//Линии из звездочек(не работавет)
+//Задано прямоугольное поле из символов, состоящее из n строк по m символов в каждой строке.
+//Каждый символ — это либо точка «.», либо звездочка «*». Требуется найти количество линий (то есть строк и столбцов), которые полностью состоят из звездочек.
+
+import numpy as np
+
+n, m = map(int, input().split())
+matrix = np.empty((n, m))
+matrix[:] = np.nan
+for i in range(n):
+    a = list((input().rstrip()))
+    row = np.array(a)
+    matrix = np.vstack([matrix, row])
+result = 0
+for i in range(0, m):
+    z = (matrix[n:2*n, i] == '*').sum()
+    if z == n:
+        result += 1
+for i in range(n, 2*n):
+    z = (matrix[i, 0:m] == '*').sum()
+    if z == m:
+        result += 1
+print(result)
+
+//Определитель матрицы
+//Дана матрица A. Вычислите ее определитель.
+
+import numpy as np
+
+size_n = int(input())
+a = np.empty((size_n, size_n))
+for i in range(size_n):
+    row = np.array([list(map(float, input().split()))])
+    a[i] = row
+b = np.linalg.det(a)
+print('{:.6f}'.format(b))
+
+//Обратная матрица
+//Дана обратимая матрица A. Найдите обратную матрицу.
+
+import numpy as np
+
+size_n = int(input())
+a = np.empty((size_n, size_n))
+for i in range(size_n):
+    row = np.array([list(map(float, input().split()))])
+    a[i] = row
+b = np.linalg.inv(a)
+for row in b:
+    print(' '.join('{:.6f}'.format(i) for i in row))
